@@ -142,3 +142,51 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+const books = getBooks();
+
+const book = getBook(1);
+
+book;
+const { title, author, genres, publicationDate } = book;
+
+genres
+
+
+const [primaryGenre, secondaryGenrem, ...otherGenres] = genres;
+
+primaryGenre
+secondaryGenrem
+
+// console.log(otherGenres);
+
+
+const newGenres = [genres, 'epic Fantasy'];
+
+// newGenres
+
+
+const newGenres2 = [...otherGenres, 'epic Fantasy'];
+
+// newGenres2
+
+
+
+const updatedBook = {
+  ...book, moviePublicationDate: '2001-12-19', pages: 1000
+}
+
+book
+console.log(updatedBook);
+
+
+const templateLitarys = ` ${title} a book`;
+
+templateLitarys
+secondaryGenrem
+
+
+const getYear = (str) => str.split("-")[0];
+
+getYear("1954-07-29");
+console.log(getYear(publicationDate));
