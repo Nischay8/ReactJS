@@ -24,6 +24,7 @@ export default function App() {
   function handelNext() {
     if (step < 3) {
       setstep(step + 1);
+      setstep(step + 1);
 
     }
   }
