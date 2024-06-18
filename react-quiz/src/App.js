@@ -10,6 +10,9 @@ import Question from "./Question";
 const initialState = {
   questions: [],
   status: "loading",
+  index: 0,
+  annwer: null,
+  points: 0,
 };
 
 function reducer(state, action) {
@@ -28,13 +31,39 @@ function reducer(state, action) {
         staus: "error",
       };
 
+    case "start":
+      return {
+        ...state,
+        status: "active",
+      };
+
+    case "newAnswer":
+      const question = state.question.at(state.index);
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + 1
+            : state.points,
+      };
+
+    case "nextQuestion":
+      return {
+        ...state,
+        index: state.index + 1,
+      };
+
     default:
       throw new Error("Action Unknown");
   }
 }
 
 export default function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestion = questions.length;
 
@@ -51,8 +80,16 @@ export default function App() {
       <Main className="main">
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "Ready" && <StartScreen numQuestion={numQuestion} />}
-        {status === "active" && <Question />}
+        {status === "Ready" && (
+          <StartScreen numQuestion={numQuestion} dispatch={dispatch} />
+        )}
+        {status === "active" && (
+          <Question
+            question={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
+        )}
       </Main>
     </div>
   );
