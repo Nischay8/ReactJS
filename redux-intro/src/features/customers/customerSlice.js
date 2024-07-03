@@ -4,20 +4,6 @@ const intialStateCustomer = {
   createdAt: "",
 };
 
-export function creatCustomer(fullName, nationalID) {
-  return {
-    type: "customer/creatCustomer",
-    payload: { fullName, nationalID, createdAt: new Date().toISOString() },
-  };
-}
-
-export function updateName(fullName) {
-  return {
-    type: "customer/updateName",
-    payload: fullName,
-  };
-}
-
 export default function customerReducer(state = intialStateCustomer, action) {
   switch (action.type) {
     case "customer/creatCustomer":
@@ -34,4 +20,18 @@ export default function customerReducer(state = intialStateCustomer, action) {
     default:
       return { ...state };
   }
+}
+
+export function creatCustomer(fullName, nationalID) {
+  return {
+    type: "customer/creatCustomer",
+    payload: { fullName, nationalID, createdAt: new Date().toISOString() },
+  };
+}
+
+export function updateName(fullName) {
+  return {
+    type: "customer/updateName",
+    payload: fullName,
+  };
 }
