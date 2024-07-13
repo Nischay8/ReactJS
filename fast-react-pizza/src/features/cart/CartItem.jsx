@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
 
