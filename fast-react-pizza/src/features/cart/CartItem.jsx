@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
-import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
 import DeleteItem from './DeleteItem';
-import UpdateIdemQuantity from './UpdateIdemQuantity';
+import UpdateItemQuantity from './UpdateItemQuantity';
 import { getCurrentQuantityById } from './cartSlice';
 
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
+
   const currentQuantity = useSelector(getCurrentQuantityById(pizzaId));
 
   return (
@@ -19,7 +17,7 @@ function CartItem({ item }) {
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
 
-        <UpdateIdemQuantity
+        <UpdateItemQuantity
           pizzaId={pizzaId}
           currentQuantity={currentQuantity}
         />
