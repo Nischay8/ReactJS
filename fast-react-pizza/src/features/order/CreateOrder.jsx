@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+
+import EmptyCart from '../cart/EmptyCart';
 import { createOrder } from '../../services/apiRestaurant';
 import Button from '../../ui/Button';
+import { useSelector } from 'react-redux';
+import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
+
+import store from '../../store';
+import { formatCurrency } from '../../utils/helpers';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -41,7 +48,15 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const cart = useSelector(getCart);
+
+  const totalCartPrice = useSelector(getTotalCartPrice);
+  const priorityPrice = 0;
+
+  const TotalPrice = totalCartPrice + priorityPrice;
+  console.log(cart);
+
+  if (!cart.length) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">
@@ -95,7 +110,9 @@ function CreateOrder() {
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button disabled={isSubmitting} type="primary">
-            {isSubmitting ? 'Placing order....' : 'Order now'}
+            {isSubmitting
+              ? 'Placing order....'
+              : `Order now from ${formatCurrency(TotalPrice)}`}
           </Button>
         </div>
       </Form>
@@ -122,9 +139,11 @@ export async function action({ request }) {
 
   // If everything is okay, create new order and redirect
 
-  // const newOrder = await createOrder(order);
+  const newOrder = await createOrder(order);
 
-  // return redirect(`/order/${newOrder.id}`);
+  store.dispatch(clearCart());
+
+  return redirect(`/order/${newOrder.id}`);
 
   return null;
 }
