@@ -98,19 +98,8 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Discount" error={errors?.discount?.message}>
-        <Input
-          type="number"
-          id="discount"
-          disabled={isWorking}
-          defaultValue={0}
-          {...register("discount", {
-            required: "This field is required",
-            validate: (value) =>
-              value <= getValues().regularPrice ||
-              "Discount should be less than regular price",
-          })}
-        />
+      <FormRow label="Discount">
+        <Input id="discount" disabled={isWorking} {...register("discount")} />
       </FormRow>
 
       <FormRow
