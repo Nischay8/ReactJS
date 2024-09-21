@@ -1,4 +1,4 @@
-import { background } from "../../assets";
+import { background } from "../assets";
 
 export const Rings = () => {
   return (
@@ -28,7 +28,7 @@ export const BackgroundCircles = () => {
   );
 };
 
-export const HambugerMenu = () => {
+export const HamburgerMenu = () => {
   return (
     <div className="absolute inset-0 pointer-events-none lg:hidden">
       <div className="absolute inset-0 opacity-[.03]">
